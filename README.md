@@ -7,6 +7,8 @@ The sketch uses the embedded interrupt engine to detect temperature data ready a
 
 The sketch was developed and tested using an STM32L432 development board (Ladybug), although the sktch should work on most Arduino-IDE-compatible MCUs with little or no modification.
 
+![test rig](https://user-images.githubusercontent.com/6698410/253826417-41d274dd-b196-47ee-b2c4-57483e647ef5.jpg)
+
 Data sheet for the STHS34PF80 is reposited [here](https://www.st.com/resource/en/datasheet/sths34pf80.pdf), AN5867 with detailed explanation of how to make use of the sensor is reposited [here](https://www.st.com/resource/en/application_note/an5867-sths34pf80-lowpower-highsensitivity-infrared-ir-sensor-for-presence-and-motion-detection-stmicroelectronics.pdf).
 
 I designed a small breakout board for the STHS34PF80, the bare pcb for which you can order from OSHPark [here](https://oshpark.com/shared_projects/Wqam2MJ5).
