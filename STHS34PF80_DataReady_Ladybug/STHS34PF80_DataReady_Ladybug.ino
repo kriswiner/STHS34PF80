@@ -1,9 +1,8 @@
-/* 1/28/23 Copyright Tlera Corporation
+/* 7/16/23 Copyright Tlera Corporation
  *  
  *  Created by Kris Winer   
  *  
- *  The STHS34PF80 is a three-channel UV light sensor with separate photodiodes sensitive to UVA, UVB, and UVC
- *  light radiation.
+ *  The STHS34PF80 is an IR sensor (5 - 20 um) with embedded presence and motion detection algorithms.
  *  
  *  Library may be used freely and without limit with attribution.
  *  
