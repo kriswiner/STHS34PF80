@@ -1,7 +1,7 @@
 # STHS34PF80
 ST IR temperature sensor with embedded presence and motion detection
 
-Arduino sketch showing how to configure the STHS34PF80 IR sensor for basic ambient and object temperature measurements as well as how to configure the embedded function algorithms and use them to detect presence and motion. The sketch allows either continuous or one-shot mode, allows changing the low-pass filters and detection thresholds to allow a wide variety of detection behavior.
+Arduino sketch showing how to configure the STHS34PF80 IR sensor for basic ambient and object temperature measurements as well as how to configure the embedded function algorithms and use them to detect presence and motion at up to 4 meters range. The sketch allows either continuous or one-shot mode, allows changing the low-pass filters and detection thresholds to allow a wide variety of detection behavior.
 
 The sketch uses the embedded interrupt engine to detect temperature data ready as well to signal presence and motion events.
 
