@@ -7,7 +7,7 @@ The sketch uses the embedded interrupt engine to detect temperature data ready a
 
 The sketch doesn't do everything but it should be a pretty good start for anyone looking to use this sensor for any people or animal counting applications.
 
-The sketch was developed and tested using an STM32L432 development board (Ladybug), although the sketch should work with most Arduino-IDE-compatible MCUs with little or no modification.
+The sketch was developed and tested using an STM32L432 development board (Ladybug), although the sketch should work with most Arduino-IDE-compatible MCUs with some modification.
 
 ![test rig](https://user-images.githubusercontent.com/6698410/253826417-41d274dd-b196-47ee-b2c4-57483e647ef5.jpg)
 
