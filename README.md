@@ -11,11 +11,11 @@ The sketch was developed and tested using an STM32L432 development board (Ladybu
 
 ![test rig](https://user-images.githubusercontent.com/6698410/253826417-41d274dd-b196-47ee-b2c4-57483e647ef5.jpg)
 
-Data sheet for the STHS34PF80 is reposited [here](https://www.st.com/resource/en/datasheet/sths34pf80.pdf), AN5867 with detailed explanation of how to make use of the sensor is reposited [here](https://www.st.com/resource/en/application_note/an5867-sths34pf80-lowpower-highsensitivity-infrared-ir-sensor-for-presence-and-motion-detection-stmicroelectronics.pdf).
+Data sheet for the STHS34PF80 is reposited [here](https://www.st.com/resource/en/datasheet/sths34pf80.pdf), application note AN5867 with detailed explanation of how to make use of the sensor is reposited [here](https://www.st.com/resource/en/application_note/an5867-sths34pf80-lowpower-highsensitivity-infrared-ir-sensor-for-presence-and-motion-detection-stmicroelectronics.pdf).
 
 I designed a small breakout board for the STHS34PF80, the bare pcb for which you can order from OSHPark [here](https://oshpark.com/shared_projects/Wqam2MJ5).
 
-I spent a bit of time testing the dependence of the behavior of the sensor on odr, temperature avgeraging, and threshold settings. In general, presence detection is pretty robust even at a few meters. This sensor has the potential to make an ultra-low-power people presence detector and ingress/egress (i.e., directional motion) counter as described [here](https://hackaday.io/project/164131-people-counter). Such a device (same footprint as my [GasCap Asset Tracker](https://www.tindie.com/products/tleracorp/gascap-loragnss-asset-tracker/)), whose prototype is shown below:
+I spent a bit of time testing the dependence of the behavior of the sensor on odr, temperature averaging, and threshold settings. In general, presence detection is pretty robust even at a few meters. This sensor has the potential to make an ultra-low-power people presence detector and ingress/egress (i.e., directional motion) counter as described [here](https://hackaday.io/project/164131-people-counter). Such a device (same footprint as my [GasCap Asset Tracker](https://www.tindie.com/products/tleracorp/gascap-loragnss-asset-tracker/)), whose prototype is shown below:
 
 ![PeopleCounter.v02](https://user-images.githubusercontent.com/6698410/254101989-eecc40b3-6343-428f-b527-0401c9f44051.jpg)
 
