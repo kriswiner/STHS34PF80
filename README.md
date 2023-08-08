@@ -28,3 +28,5 @@ For this prototype, I included a BME280 for environmental (P, H, T) sensing, a L
 The first hurdle in using the STHS34PF80 for people counting is that to determine direction of travel, that is, to distinguish between ingress and egress at a threshold, two widely-spaced IR sensors are required. However, the STHS34PF80 only has one unchangeable I2C address (0x5A). Initial attempts to use two n-type FETs to toggle SDA shared between the two IR sensors didn't work for some reason. Instead, I ended up using a TI switch (SN74LVC1G3157DRYR) which does work.
 
 ![initial prototype](https://user-images.githubusercontent.com/6698410/259259769-05fe8b1b-525f-4b68-bb6b-8ce0bd80aaf1.jpg)
+
+Next is to develop the people-counting application...
