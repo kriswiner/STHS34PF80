@@ -24,3 +24,7 @@ ends up being smaller, cheaper, and easier to use than the previous people count
 The device above should be able to accurately determine presence, distinguish entry and exit at a threshold (i.e., doorway), and report these events via LoRaWAN while using ~25 uA continuous current at 3.1 V. The PeopleCounter device is designed to use a AA-sized, 3.6 V, 2400 mAH LiSOCl2 battery, which would last more than ten years at this current usage. Testing will tell...
 
 For this prototype, I included a BME280 for environmental (P, H, T) sensing, a LIS2DW12 accel to detect tampering and theft of the device, and an expansion connector in case I need to add some other serial device(s) in development. The mechanical power switch, USB connector, and expansion connector would all likely be dropped in any production version of the device to minimize costs.
+
+The first hurdle in using the STHS34PF80 for people counting is that to determine direction of travel, that is, to distinguish between ingress and egress at a threshold, two widely-spaced IR sensors are required. However, the STHS34PF80 only has one unchangeable I2C address (0x5A). Initial attempts to use two n-type FETs to toggle SDA shared between the two IR sensors didn't work for some reason. Instead, I ended up using a TI switch (SN74LVC1G3157DRYR) which does work.
+
+![image]()
