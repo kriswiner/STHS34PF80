@@ -27,7 +27,7 @@ For this prototype, I included a BME280 for environmental (P, H, T) sensing, a L
 
 The first hurdle in using the STHS34PF80 for people counting is that to determine direction of travel, that is, to distinguish between ingress and egress at a threshold, two widely-spaced IR sensors are required. However, the STHS34PF80 only has one unchangeable I2C address (0x5A). Initial attempts to use two n-type FETs to toggle SDA shared between the two IR sensors didn't work for some reason. Instead, I ended up using a TI switch (SN74LVC1G3157DRYR) which does work.
 
-![initial prototype](https://user-images.githubusercontent.com/6698410/259259769-05fe8b1b-525f-4b68-bb6b-8ce0bd80aaf1.jpg)
+![initial prototype](https://user-images.githubusercontent.com/6698410/259577490-991a7b28-7501-4bd8-ad37-77533a3238a1.jpg)
 
 The basic people counting sketch shows how to configure and get data from the two STHS34PF80 IR sensors along with the LIS2DW12 accelerometer and BME280 barometer sensors on the prototype board. The setup portion of the sketch checks and configures all sensors for I2C communication and operation. The main loop is entirely interrupt based; if the STM32L082 MCU is not handling an interrupt it is in the lowest attainable power mode until an interrupt wakes it from sleep. The data is output to the serial monitor based on the RTC timer, although a timerMillis object would be more general. The latter is used to schedule LoRaWAN updates of the data at 10 minute intervals. The sketch is simply intended to test correct operation of all of the components on the prototype.  
 
