@@ -3,7 +3,7 @@
    LIS2DW12 accelerometer and BME280 environmental sensor 
 
    Same basic design as Cricket asset tracker but in a more convenient form factor. Using
-   Grasshopper board variant since Cricket does not make all GIO available to the application program.
+   Grasshopper board variant since Cricket does not make all GPIO available to the application program.
 
    This skt=etch simply shows how to get the data from the sensors and send some of it via LoRaWAN to
    the TTN server.
