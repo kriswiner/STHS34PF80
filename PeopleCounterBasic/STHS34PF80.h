@@ -127,6 +127,7 @@ class STHS34PF80
   void oneShot();
   int16_t readAmbTemp();
   int16_t readObjTemp();
+  int16_t readCompObjTemp();
   int16_t readPresence();
   int16_t readMotion();
   int16_t readAmbShock();
@@ -135,6 +136,7 @@ class STHS34PF80
   uint8_t getFuncStatus();
   void    configAlgo(uint16_t presence_ths, uint16_t motion_ths, uint16_t tamb_shock_ths, uint8_t presence_hyst, uint8_t motion_hyst, uint8_t tamb_shock_hyst);
   void    readAlgoConfig(uint16_t * dest);
+  void    ambTempComp();  
   void    resetAlgo();
 
   private:
