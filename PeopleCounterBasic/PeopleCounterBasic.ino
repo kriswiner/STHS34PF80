@@ -5,7 +5,7 @@
    Same basic design as Cricket asset tracker but in a more convenient form factor. Using
    Grasshopper board variant since Cricket does not make all GPIO available to the application program.
 
-   This skt=etch simply shows how to get the data from the sensors and send some of it via LoRaWAN to
+   This sketch simply shows how to get the data from the sensors and send some of it via LoRaWAN to
    the TTN server.
 
    Idea is ultra-low power for longest LiPo battery life so I would run this with
@@ -86,7 +86,7 @@ uint8_t lpf_P = STHS34PF80_ODR_200, lpf_M = STHS34PF80_ODR_200, lpf_PM = STHS34P
 uint8_t gain = NORMAL_MODE;  // NORMAL_MODE or WIDE_MODE (no embedded functionality)
 
 uint16_t algoConfig[5] = {0, 0, 0, 0, 0};
-int16_t AmbTemp = 0, ObjTemp = 0, Presence = 0, Motion = 0, AmbShock = 0, ObjSense = 0;
+int16_t AmbTemp = 0, ObjTemp = 0, CompObjTemp = 0, Presence = 0, Motion = 0, AmbShock = 0, ObjSense = 0;
 volatile bool STHS34PF80_1_flag = false, STHS34PF80_2_flag = false;
 uint8_t irstatus1 = 0, funcstatus1 = 0, irstatus2 = 0, funcstatus2 = 0;
 
@@ -247,6 +247,7 @@ void setup()
    STHS34PF80.config(avgt, avgtmos, gain, FUNCTIONS);
 
    STHS34PF80.configAlgo(presence_ths, motion_ths, tamb_shock_ths, presence_hyst, motion_hyst, tamb_shock_hyst);
+   STHS34PF80.ambTempComp();
    STHS34PF80.readAlgoConfig(algoConfig); // check that algorithm is configured properly
       if(SerialDebug) {
         Serial.print("Presence threshold = ");   Serial.print(algoConfig[0]);               Serial.print(", should be "); Serial.println(presence_ths);
@@ -279,6 +280,7 @@ void setup()
    STHS34PF80.config(avgt, avgtmos, gain, FUNCTIONS);
 
    STHS34PF80.configAlgo(presence_ths, motion_ths, tamb_shock_ths, presence_hyst, motion_hyst, tamb_shock_hyst);
+   STHS34PF80.ambTempComp();
    STHS34PF80.readAlgoConfig(algoConfig); // check that algorithm is configured properly
       if(SerialDebug) {
         Serial.print("Presence threshold = ");   Serial.print(algoConfig[0]);               Serial.print(", should be "); Serial.println(presence_ths);
@@ -429,11 +431,13 @@ void loop()
     Motion =   STHS34PF80.readMotion();  
     AmbTemp =  STHS34PF80.readAmbTemp();
     ObjTemp =  STHS34PF80.readObjTemp();
+    CompObjTemp =  STHS34PF80.readCompObjTemp();
     AmbShock = STHS34PF80.readAmbShock();
 
      if(SerialDebug) {
       Serial.println("Raw counts");
       Serial.print("STHS34PF80 ObjTemp = ");  Serial.println(ObjTemp);  
+      Serial.print("STHS34PF80 Compensated ObjTemp = ");  Serial.println(CompObjTemp);  
       Serial.print("STHS34PF80 AmbTemp = ");  Serial.println(AmbTemp);  
       Serial.print("STHS34PF80 Presence = "); Serial.println(Presence);  
       Serial.print("STHS34PF80 Motion = ");   Serial.println(Motion);  
@@ -442,6 +446,7 @@ void loop()
    
       Serial.print("STHS34PF80 1 Ambient Temperature = "); Serial.print(float(AmbTemp) / 100.0f, 2); Serial.println(" C");
       Serial.print("STHS34PF80 1 Object Temperature = "); Serial.print(float(ObjTemp) / float(ObjSense), 2); Serial.println(" C");
+      Serial.print("STHS34PF80 1 Compensated Object Temperature = "); Serial.print(float(CompObjTemp) / float(ObjSense), 2); Serial.println(" C");
       Serial.println(" ");
      }
    }
@@ -471,11 +476,13 @@ void loop()
     Motion =   STHS34PF80.readMotion();  
     AmbTemp =  STHS34PF80.readAmbTemp();
     ObjTemp =  STHS34PF80.readObjTemp();
+    CompObjTemp =  STHS34PF80.readCompObjTemp();
     AmbShock = STHS34PF80.readAmbShock();
 
      if(SerialDebug) {
       Serial.println("Raw counts");
       Serial.print("STHS34PF80 ObjTemp = ");  Serial.println(ObjTemp);  
+      Serial.print("STHS34PF80 Compensated ObjTemp = ");  Serial.println(CompObjTemp);  
       Serial.print("STHS34PF80 AmbTemp = ");  Serial.println(AmbTemp);  
       Serial.print("STHS34PF80 Presence = "); Serial.println(Presence);  
       Serial.print("STHS34PF80 Motion = ");   Serial.println(Motion);  
@@ -484,6 +491,7 @@ void loop()
    
       Serial.print("STHS34PF80 2 Ambient Temperature = "); Serial.print(float(AmbTemp) / 100.0f, 2); Serial.println(" C");
       Serial.print("STHS34PF80 2 Object Temperature = "); Serial.print(float(ObjTemp) / float(ObjSense), 2); Serial.println(" C");
+      Serial.print("STHS34PF80 2 Compensated Object Temperature = "); Serial.print(float(CompObjTemp) / float(ObjSense), 2); Serial.println(" C");
       Serial.println(" ");
      }
    }
