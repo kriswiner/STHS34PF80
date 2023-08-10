@@ -114,6 +114,14 @@ STHS34PF80::STHS34PF80(I2Cdev* i2c_bus)
   }
 
 
+  int16_t STHS34PF80::readCompObjTemp()
+  {
+   uint8_t rawData[2];  // 16-bit register data stored here
+   _i2c_bus->readBytes(STHS34PF80_ADDRESS, STHS34PF80_TOBJ_COMP_L, 2, &rawData[0]);
+   return (int16_t)(((int16_t)rawData[1]) << 8 | rawData[0]);
+  }
+
+
   int16_t STHS34PF80::readPresence()
   {
    uint8_t rawData[2];  // 16-bit register data stored here
@@ -226,6 +234,27 @@ STHS34PF80::STHS34PF80(I2Cdev* i2c_bus)
    
   _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_PAGE_RW, 0x00);                            // disable read from embedded function register
           temp = _i2c_bus->readByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2);
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2, temp & ~(0x10));                         // disable access to embedded function register
+ }
+
+
+  void STHS34PF80::ambTempComp()
+ {
+  uint8_t temp = _i2c_bus->readByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2);  
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2, temp | 0x10);                            // enable access to embedded function register
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_PAGE_RW, 0x20);                            // enable read from embedded function register
+  
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_CFG_ADDR, STHS34PF80_ALGO_CONFIG);        // set embedded register address to ALGO_CONFIG
+  temp = _i2c_bus->readByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_CFG_DATA);                          // read contents of ALGO_CONFIG
+
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_PAGE_RW, 0x00);                           // disable read from embedded function register
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_PAGE_RW, 0x40);                           // enable write to embedded function register
+
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_CFG_ADDR, STHS34PF80_ALGO_CONFIG);        // set embedded register address to ALGO_CONFIG
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_CFG_DATA, temp | 0x04);                   // set COMP_TYPE bit in ALGO_CONF
+
+  _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_FUNC_PAGE_RW, 0x00);                            // disable read from embedded function register
+  temp = _i2c_bus->readByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2);
   _i2c_bus->writeByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL2, temp & ~(0x10));                         // disable access to embedded function register
  }
 
