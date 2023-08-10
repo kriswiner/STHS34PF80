@@ -175,7 +175,7 @@ void setup()
   analogReadResolution(12);
 
   pinMode (IR_select, OUTPUT);
-  digitalWrite(IR_select, LOW); // select top IR sensor by default
+  digitalWrite(IR_select, LOW); // select bottom IR sensor by default
 
   pinMode(STHS34PF80_1_intPin, INPUT);  // define bottom STHS34PF80 data ready interrupt
   pinMode(STHS34PF80_2_intPin, INPUT);  // define top STHS34PF80 data ready interrupt
@@ -188,16 +188,16 @@ void setup()
   I2C_BUS.setClock(400000);       // I2C frequency at 400 kHz
   delay(100);
 
-  digitalWrite(IR_select, HIGH);  // select bottom IR sensor 
+  digitalWrite(IR_select, LOW);  // select bottom IR sensor 
   i2c_0.I2Cscan();               // should detect all I2C devices on the bus
   delay(100);
-  digitalWrite(IR_select, LOW); // select top IR sensor  
+  digitalWrite(IR_select, HIGH); // select top IR sensor  
   i2c_0.I2Cscan();               // should detect all I2C devices on the bus
   delay(1000);
   
 
   // Read the bottom STHS34PF80 Chip ID register, this is a good test of communication
-  digitalWrite(IR_select, HIGH);  // select bottom IR sensor 
+  digitalWrite(IR_select, LOW);  // select bottom IR sensor 
   Serial.println("STHS34PF80 IR sensorr...");
   byte STHS34PF80_1_ID = STHS34PF80.getChipID();  // Read CHIP_ID register for STHS34PF80
   if(SerialDebug) {
@@ -206,7 +206,7 @@ void setup()
    }
    
   // Read the top STHS34PF80 Chip ID register, this is a good test of communication
-  digitalWrite(IR_select, LOW);  // select top IR sensor 
+  digitalWrite(IR_select, HIGH);  // select top IR sensor 
   Serial.println("STHS34PF80 IR sensor...");
   byte STHS34PF80_2_ID = STHS34PF80.getChipID();  // Read CHIP_ID register for STHS34PF80
   if(SerialDebug) {
@@ -234,7 +234,7 @@ void setup()
   {
    if(SerialDebug) {Serial.println("LIS2DW12 and BME280 and both STHS34PF80 are online..."); Serial.println(" "); }
 
-   digitalWrite(IR_select, HIGH);  // select bottom IR sensor 
+   digitalWrite(IR_select, LOW);  // select bottom IR sensor 
    if(SerialDebug)  Serial.print("Configure IR sensor 1");
    STHS34PF80.reset();     // reset all registers to default, sensor enters power down after reset, so next line is redundant
    STHS34PF80.powerDown(); // power down to configure embedded algorithms or wait for one-shot command
@@ -266,7 +266,7 @@ void setup()
       }
 
 
-   digitalWrite(IR_select, LOW);  // select top IR sensor 
+   digitalWrite(IR_select, HIGH);  // select top IR sensor 
    if(SerialDebug) Serial.print("Configure IR sensor 2");
    STHS34PF80.reset();     // reset all registers to default, sensor enters power down after reset, so next line is redundant
    STHS34PF80.powerDown(); // power down to configure embedded algorithms or wait for one-shot command
@@ -411,7 +411,7 @@ void loop()
   {
    STHS34PF80_1_flag = false;    // clear the interrupt flag  
 
-   digitalWrite(IR_select, HIGH);  // select bottom IR sensor 
+   digitalWrite(IR_select, LOW);  // select bottom IR sensor 
      if(SerialDebug) {Serial.println("Data for IR sensor 1:"); Serial.println(" ");}
 
    irstatus1 = STHS34PF80.getDataReadyStatus();
@@ -453,7 +453,7 @@ void loop()
   {
    STHS34PF80_2_flag = false;    // clear the interrupt flag  
 
-   digitalWrite(IR_select, LOW);  // select top IR sensor 
+   digitalWrite(IR_select, HIGH);  // select top IR sensor 
      if(SerialDebug) {Serial.println("Data for IR sensor 2:"); Serial.println(" ");}
 
    irstatus2 = STHS34PF80.getDataReadyStatus();
