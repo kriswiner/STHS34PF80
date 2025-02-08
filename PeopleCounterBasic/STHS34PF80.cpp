@@ -52,7 +52,7 @@ STHS34PF80::STHS34PF80(I2Cdev* i2c_bus)
   void STHS34PF80::powerUp(uint8_t odr) 
   {
    uint8_t temp = _i2c_bus->readByte(STHS34PF80_ADDRESS, STHS34PF80_CTRL1);  
-   _i2c_bus->writeByte(STHS34PF80_ADDRESS,  STHS34PF80_CTRL1, temp | 0x40 | odr );  //  set bdu = 1 (bit 4 == 1) and odr
+   _i2c_bus->writeByte(STHS34PF80_ADDRESS,  STHS34PF80_CTRL1, temp | 0x10 | odr );  //  set bdu = 1 (bit 4 == 1) and odr
   }
 
   
